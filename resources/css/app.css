@@ -2,3 +2,31 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+html,body{
+	height:100%;
+	font-size:16px;
+	margin: 0;
+	padding:0;
+}
+.main-grid{
+	/*height: 100vh;*/
+	min-height:100%;
+	grid-template-rows: min-content 1fr min-content;
+	grid-template-areas: 
+		"header header header header header header header header header header header header"
+		"sidebar sidebar sidebar content content content content content content content content content"
+		"footer footer footer footer footer footer footer footer footer footer footer footer";
+}
+.main-grid .header{
+    grid-area: header;
+}
+.main-grid .sidebar{
+    grid-area: sidebar;
+}
+.main-grid .content{
+    grid-area: content;
+}
+.main-grid .footer{
+	grid-area: footer;
+}
