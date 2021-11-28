@@ -1,0 +1,45 @@
+/* ./resources/css/app.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import "scss/base_layout.scss";
+
+/* The block of Success and Error above the header */
+$block-s-e-height: 4rem; 
+.block-success-error{
+	height:$block-s-e-height;
+	width: 20%;
+	position:absolute;
+	top: ($block-s-e-height * -1);
+	left:40%;
+	font-size:1.1rem;
+	font-weight:bold;
+	text-align: center;
+	text-transform: uppercase;
+    padding: 1em;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+	&.block-success-error__success{
+		background: #eaf4ff;
+		border-left: 2px solid #b4c6f5;
+		border-right: 2px solid #b4c6f5;
+		border-bottom: 2px solid #b4c6f5;
+		color:#24a924;
+	}
+	&.block-success-error__error{
+		background: #fff5ea;
+		color:#f35120;
+		border-left: 2px solid #f5dbba;
+		border-right: 2px solid #f5dbba;
+		border-bottom: 2px solid #f5dbba;
+	}
+	animation: block-s-e 3s linear 1s 2 alternate;
+}
+@keyframes block-s-e {
+  0%   {top: ($block-s-e-height * -1);}
+  25%  {top: 0px;}
+  50%  {top: 0px;}
+  100%  {top: 0px;}
+}
+/* End of the block of Success and Error above the header */
