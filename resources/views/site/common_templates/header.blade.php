@@ -1,3 +1,4 @@
+@include('site.common_templates.success_and_eerors')
 <header>
 	<nav class="flex justify-between p-6 bg-white">
 		<ul class="flex items-center">
