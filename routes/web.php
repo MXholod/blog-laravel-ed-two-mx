@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Cabinet\CabinetController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,4 +17,20 @@ use App\Http\Controllers\Auth\AuthController;
 */
 
 Route::get('/',[HomeController::class, 'index'])->name('home');
-Route::get('/signup',[AuthController::class, 'index'])->name('signup');
+//Middleware RedirectIfAuthenticated was changed.If you are 'guest' you will be redirected to home() route.
+//We cannot follow these routes if we are authenticated
+Route::middleware(['guest'])->group(function(){
+	//Sign up
+	Route::get('/signup',[AuthController::class, 'signupForm'])->name('signup');
+	Route::post('/signup',[AuthController::class, 'signupStore']);
+	//Sign in
+	Route::get('/signin',[AuthController::class, 'signinForm'])->name('signin');
+	Route::post('/signin',[AuthController::class, 'signinStore']);
+});
+//Middleware 'auth' only for authenticated users
+Route::post('/signout',[AuthController::class, 'signinOut'])->name('signout')->middleware('auth');
+
+Route::middleware(['auth'])->group(function(){
+	//Cabinet
+	Route::get('/cabinet', [CabinetController::class, 'index'])->name('cabinet');
+});
