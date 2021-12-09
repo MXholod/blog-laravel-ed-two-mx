@@ -16,8 +16,8 @@ class CreateArticlesTable extends Migration
         Schema::create('articles', function (Blueprint $table) {
             $table->id();
             //$table->bigIncrements('id');//AUTO_INCREMENTS, UNSIGNED, BIGINT, PRIMARY KEY
-			$table->string('title')->unsigned();
-			$table->string('slug')->unsigned();
+			$table->string('title')->unique();
+			$table->string('slug')->unique();
 			$table->text('body');
 			$table->string('img');
             $table->timestamps(); //It will create two fields: created_at and updated_at 
