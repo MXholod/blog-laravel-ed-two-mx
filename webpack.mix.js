@@ -17,7 +17,7 @@ const tailwindcss = require('tailwindcss');
 		require('tailwindcss')
     ]);*/
     
-mix.js('resources/js/app.js', 'public/js')
+mix.js('resources/js/app.js', 'public/js').vue()
 	.sass('resources/css/site/app.scss', 'public/css')
 	//.styles(['resources/css/site/app.css'], 'public/css/app.css')
     .options({
