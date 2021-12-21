@@ -8,7 +8,7 @@
 		<link href="{{ asset('css/app.css') }}" rel="stylesheet" />
 	</head>
 	<body class="bg-gray-200">
-		<div class="grid gap-2 main-grid">
+		<div class="grid gap-2 main-grid" id="app">
 			<div class="header">
 				<!-- Header -->
 				@include('site.common_templates.header')
@@ -26,5 +26,6 @@
 				@include('site.common_templates.footer')
 			</div>
 		</div>
+		<script src="{{ mix('js/app.js') }}"></script>
 	</body>
 </html>
