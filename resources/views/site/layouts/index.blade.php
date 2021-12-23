@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="font-sans">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="tw-font-sans">
 	<head>
 		<meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,8 +7,8 @@
 		<title>Document</title>
 		<link href="{{ asset('css/app.css') }}" rel="stylesheet" />
 	</head>
-	<body class="bg-gray-200">
-		<div class="grid gap-2 main-grid" id="app">
+	<body class="tw-bg-gray-200">
+		<div class="tw-grid tw-gap-2 main-grid" id="app">
 			<div class="header">
 				<!-- Header -->
 				@include('site.common_templates.header')

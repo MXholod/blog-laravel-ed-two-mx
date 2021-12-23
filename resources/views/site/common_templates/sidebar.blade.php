@@ -1,3 +1,3 @@
-<aside class="bg-white p-2 rounded-r-lg">
+<aside class="tw-bg-white tw-p-2 tw-rounded-r-lg">
 	<h3>Sidebar</h3>
 </aside>
