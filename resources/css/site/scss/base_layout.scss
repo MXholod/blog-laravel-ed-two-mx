@@ -1,5 +1,13 @@
+@font-face {
+   font-family: Ubuntu;
+   /* This path starts from app.scss */
+   src: url("./../../fonts/Ubuntu/Ubuntu-Regular.ttf");
+}
+//Variables
+@import 'variables';
 html,body{
 	height:100%;
+	font-family:Ubuntu;
 	font-size:16px;
 	margin: 0;
 	padding:0;
@@ -15,6 +23,9 @@ html,body{
 }
 .main-grid .header{
     grid-area: header;
+	nav{
+		background-color: $nav-bgcolor;
+	}
 }
 .main-grid .sidebar{
     grid-area: sidebar;
@@ -24,4 +35,7 @@ html,body{
 }
 .main-grid .footer{
 	grid-area: footer;
+	footer{
+		background-color: $footer-bgcolor;
+	}
 }
