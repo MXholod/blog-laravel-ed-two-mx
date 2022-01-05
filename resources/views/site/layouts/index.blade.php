@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
 		<title>Document</title>
-		<link href="{{ asset('css/app.css') }}" rel="stylesheet" />
+		<link href="{{ mix('css/app.css') }}" rel="stylesheet" />
 	</head>
 	<body class="tw-bg-gray-200">
 		<div class="tw-grid tw-gap-2 main-grid" id="app">

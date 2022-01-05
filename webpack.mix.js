@@ -18,9 +18,11 @@ const tailwindcss = require('tailwindcss');
     ]);*/
     
 mix.js('resources/js/app.js', 'public/js').vue()
-	.sass('resources/css/site/app.scss', 'public/css')
+	.sass('resources/css/site/app.scss', 'public/css').version()
 	//.styles(['resources/css/site/app.css'], 'public/css/app.css')
     .options({
         processCssUrls: false,
         postCss: [tailwindcss('./tailwind.config.js')]
 	});
+mix.copy('resources/images', 'public/images');
+mix.copy('resources/fonts', 'public/fonts');
