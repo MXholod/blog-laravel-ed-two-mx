@@ -28,7 +28,7 @@ Route::middleware(['guest'])->group(function(){
 	Route::post('/signin',[AuthController::class, 'signinStore']);
 });
 //Middleware 'auth' only for authenticated users
-Route::post('/signout',[AuthController::class, 'signinOut'])->name('signout')->middleware('auth');
+Route::post('/signout',[AuthController::class, 'signOut'])->name('signout')->middleware('auth');
 
 Route::middleware(['auth'])->group(function(){
 	//Cabinet

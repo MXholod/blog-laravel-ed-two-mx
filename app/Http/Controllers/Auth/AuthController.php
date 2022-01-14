@@ -84,7 +84,7 @@ class AuthController extends Controller
 		return redirect()->route('cabinet');
 	}
 	
-	public function signinOut(){
+	public function signOut(){
 		auth()->logout();
 		return redirect()->route('home');
 	}
