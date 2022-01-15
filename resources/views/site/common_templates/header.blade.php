@@ -3,19 +3,23 @@
 	<nav class="tw-flex tw-justify-between tw-p-6 tw-bg-white">
 		<ul class="tw-flex tw-items-center">
 			<li>
-				<a href="{{ route('home') }}" class="tw-p-3">Home</a>
+				<a href="{{ route('home') }}" class="tw-p-3 {{ request()->is('/') ? 'tw-inline-block tw-border tw-border-blue-500 tw-rounded tw-py-1 tw-px-3 tw-bg-blue-500 tw-text-white' : '' }}">
+					Home
+				</a>
 			</li>
 			<li>
 				<a href="#" class="tw-p-3">Dashboard</a>
 			</li>
 			<li>
-				<a href="#" class="tw-p-3">Article</a>
+				<a href="{{ route('article.index') }}" class="tw-p-3 {{ (request()->is('articles') or request()->is('articles/*')) ? 'tw-inline-block tw-border tw-border-blue-500 tw-rounded tw-py-1 tw-px-3 tw-bg-blue-500 tw-text-white' : '' }}">
+					Articles
+				</a>
 			</li>
 		</ul>
 		<ul class="tw-flex tw-items-center">
 			@auth
 				<li>
-					<a href="#" class="tw-p-3">{{ auth()->user()->firstname }}</a>
+					<a href="{{ route('cabinet') }}" class="tw-p-3">{{ auth()->user()->firstname }}</a>
 				</li>
 				<li>
 					<form action="{{ route('signout') }}" method="post" class="tw-inline tw-p-3">
