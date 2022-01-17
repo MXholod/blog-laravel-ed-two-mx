@@ -8,7 +8,7 @@
 		<link href="{{ mix('css/app.css') }}" rel="stylesheet" />
 	</head>
 	<body class="tw-bg-gray-200">
-		<div class="tw-grid tw-gap-2 main-grid" id="app">
+		<div class="main-grid tw-grid" id="app">
 			<div class="header">
 				<!-- Header -->
 				@include('site.common_templates.header')
@@ -27,5 +27,6 @@
 			</div>
 		</div>
 		<script src="{{ mix('js/app.js') }}"></script>
+		@stack('scripts-bottom')
 	</body>
 </html>
