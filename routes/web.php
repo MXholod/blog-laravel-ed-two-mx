@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Cabinet\CabinetController;
+use App\Http\Controllers\ArticleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +18,9 @@ use App\Http\Controllers\Cabinet\CabinetController;
 */
 
 Route::get('/',[HomeController::class, 'index'])->name('home');
+Route::get('/articles', [ArticleController::class, 'index'])->name('article.index');
+Route::get('/articles/{slug}', [ArticleController::class, 'show'])->name('article.show');
+Route::get('/articles/tag/{tag}', [ArticleController::class, 'allByTag'])->name('article.tag');
 //Middleware RedirectIfAuthenticated was changed.If you are 'guest' you will be redirected to home() route.
 //We cannot follow these routes if we are authenticated
 Route::middleware(['guest'])->group(function(){
