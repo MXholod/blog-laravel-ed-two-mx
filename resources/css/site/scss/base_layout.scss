@@ -14,6 +14,9 @@ html,body{
 }
 .main-grid{
 	/*height: 100vh;*/
+	gap: .4%;
+	/* 100 - (0.4 * 11) = 95.6% / 12 = 7.966% */
+	grid-template-columns: 7.966% 7.966% 7.966% 7.966% 7.966% 7.966% 7.966% 7.966% 7.966% 7.966% 7.966% 7.966%;
 	min-height:100%;
 	grid-template-rows: min-content 1fr min-content;
 	grid-template-areas: 
@@ -29,9 +32,126 @@ html,body{
 }
 .main-grid .sidebar{
     grid-area: sidebar;
+	.articles__list{
+		h3:first-child{
+			font-weight:bold;
+			background-color: #619cf3;
+			padding:7px;
+			border-radius:10px;
+			color:#fff;
+			margin-bottom:.5em;
+			span:first-child{
+				display:inline-block;
+				width:90%;
+			}
+			i{
+				position:relative;
+				top:0;
+				left:0;
+				transition: top .5s ease;
+			}
+			i:hover, i:active{
+				top:-2px;
+			}
+			i:nth-of-type(2){
+				display:none;
+			}
+		}
+		.article-item-preview{
+			display:none;
+			background-color:#e8f2f9;
+			border:1px solid #4075c3;
+			border-radius:3px;
+			margin:0 0 .5em 1%;
+			width: 98%;
+			.article-img-preview{
+				flex-basis:30%;
+			}
+			.article-text-preview{
+				font-size:.9em;
+				span:first-child{
+					text-indent:.5em;
+					padding-left:.5em;
+					padding:2px;
+				}
+				.nav-link{
+					padding:0px;
+					text-align:right;
+					padding-right:.5em;
+				}
+			}
+			.article-statistics{
+				padding-left:.5em;
+				div:first-child{
+					span:last-child{
+						font-size:.8em;
+					}
+				}
+				div:last-child{
+					padding-left:.5em;
+					span:first-child{
+						font-size:.8em;
+						font-weight:bold;
+					}
+				}
+			}
+			.article-created-at{
+				margin-top:3px;
+				border-top:1px solid #619cf3;
+				font-size:.9em;
+				span{
+					font-weight:bold;
+					padding-left: .5em;
+				}
+			}
+		}
+	}
 }
 .main-grid .content{
     grid-area: content;
+	.article-item-preview{
+		background-color:#e8f2f9;
+		border:1px solid #4075c3;
+		border-radius:3px;
+		margin:0 0 .5em 7%;
+		width: 85%;
+		.article-img-preview{
+			max-width:80px;
+			max-height:80px;
+		}
+		.article-text-preview{
+			width:100%;
+			.article-main-text{
+				height:75%;
+				
+			}
+			.article-details{
+				display:flex;
+				justify-content:space-between;
+				padding: 0 1rem;
+				.article-created-at{
+					font-weight:bold;
+				}
+				a:last-child{
+					color: blue;
+				}
+			}
+		}
+	}
+	.full-article{
+		.full-article__header{}
+		.full-article__created-at{
+			font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+		}
+		.full-article__content{
+			.full-article__image{
+				float: left;
+				margin: 15px 15px 0 0;
+			}
+		}
+	}
+	.article-comments{}
+	.article-comment-list{}
 }
 .main-grid .footer{
 	grid-area: footer;
