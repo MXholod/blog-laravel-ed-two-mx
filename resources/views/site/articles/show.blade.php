@@ -17,12 +17,13 @@
 			</span>
 			{{ $article->body }}
 		</div>
-		<p>
+		<p class="tw-mt-4 tw-ml-4">
+			<span class="tw-italic tw-pr-4">Tags:</span>
 			@foreach($article->tags as $tag)
 				@if($loop->last)
-					<span>{{ $tag->label }}</span>
+					<span class="tw-font-bold">{{ $tag->label }}</span>
 				@else
-					<span>{{ $tag->label }} |</span>
+					<span class="tw-font-bold">{{ $tag->label }} |</span>
 				@endif
 			@endforeach
 		</p>
@@ -45,17 +46,26 @@
 	</article>
 	<div class="tw-mt-4 article-comments">
 		@auth
-		<form action="" method="">
+		<form action="{{route('comment.store')}}" method="post">
 			<fieldset>
 				<legend>Leave a comment</legend>
+				@csrf
 			<div>
 				<label class="form-label">
-					<input type="text" class="form-control" placeholder="Comment theme" />
+					<input type="text" name="comTheme" class="form-control @error('comTheme') is-invalid @enderror" placeholder="Comment theme" value="{{ old('comTheme') }}" />
+					@if($errors->has('comTheme'))
+						<span class="text-danger">{{ $errors->first('comTheme') }}</span>
+					@endif
 				</label>
 			</div>
 			<div>
 				<label class="form-label">Comment
-					<textarea class="form-control" rows="3" cols="24"></textarea>
+					<textarea name="comText" class="form-control @error('comText') is-invalid @enderror" rows="3" cols="24" placeholder="Comment text">
+						{{ old('comText') }}
+					</textarea>
+					@if($errors->has('comText'))
+						<span class="text-danger">{{ $errors->first('comText') }}</span>
+					@endif
 				</label>
 				<input type="hidden" name="userId" value="{{ auth()->id() }}" />
 				<input type="hidden" name="articleId" value="{{ $article->id }}" />
@@ -71,9 +81,10 @@
 		<div class="tw-mt-3 article-comment-list">
 			@foreach($article->comments as $comment)
 				<div class="tw-w-full toast show" data-bs-autohide="false">
-					<div class="toast-header">
+					<div class="toast-header tw-flex-col tw-items-start">
+						<span><b>User name:</b> {{ $comment->user->firstname }}</span>
 						<img class="rounded" />
-						<b>{{ $comment->subject }}</b>
+						<span><b>Discussed theme:</b> {{ $comment->subject }}</span>
 					</div>
 					<div class="toast-body">
 						{{ $comment->body }}
