@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Cabinet\CabinetController;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\CommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,4 +38,5 @@ Route::post('/signout',[AuthController::class, 'signOut'])->name('signout')->mid
 Route::middleware(['auth'])->group(function(){
 	//Cabinet
 	Route::get('/cabinet', [CabinetController::class, 'index'])->name('cabinet');
+	Route::post('/comment', [CommentController::class, 'store'])->name('comment.store');
 });
