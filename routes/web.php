@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Cabinet\CabinetController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\Admin\AdminHomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,4 +40,10 @@ Route::middleware(['auth'])->group(function(){
 	//Cabinet
 	Route::get('/cabinet', [CabinetController::class, 'index'])->name('cabinet');
 	Route::post('/comment', [CommentController::class, 'store'])->name('comment.store');
+});
+//Administration zone
+Route::prefix('admin')->group(function(){
+	Route::middleware(['is_admin'])->group(function(){
+		Route::get('/',[AdminHomeController::class, 'index'])->name('admin.index');
+	});
 });
