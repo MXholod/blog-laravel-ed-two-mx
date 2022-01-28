@@ -1,0 +1,45 @@
+@font-face {
+   font-family: Ubuntu;
+   /* This path starts from app.scss */
+   src: url("./../../fonts/Ubuntu/Ubuntu-Regular.ttf");
+}
+//Variables
+@import 'variables';
+html,body{
+	height:100%;
+	font-family:Ubuntu;
+	font-size:16px;
+	margin: 0;
+	padding:0;
+}
+.main-grid{
+	/*height: 100vh;*/
+	gap: .4%;
+	/* 100 - (0.4 * 11) = 95.6% / 12 = 7.966% */
+	grid-template-columns: 7.966% 7.966% 7.966% 7.966% 7.966% 7.966% 7.966% 7.966% 7.966% 7.966% 7.966% 7.966%;
+	min-height:100%;
+	grid-template-rows: min-content 1fr min-content;
+	grid-template-areas: 
+		"header header header header header header header header header header header header"
+		"sidebar sidebar sidebar content content content content content content content content content"
+		"footer footer footer footer footer footer footer footer footer footer footer footer";
+}
+.main-grid .header{
+    grid-area: header;
+	nav{
+		background-color: $nav-bgcolor;
+	}
+}
+.main-grid .sidebar{
+    grid-area: sidebar;
+	
+}
+.main-grid .content{
+    grid-area: content;
+}
+.main-grid .footer{
+	grid-area: footer;
+	footer{
+		background-color: $footer-bgcolor;
+	}
+}
