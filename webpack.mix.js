@@ -18,7 +18,14 @@ const tailwindcss = require('tailwindcss');
     ]);*/
     
 mix.js('resources/js/app.js', 'public/js').vue()
+mix.js('resources/js/admin/app.js', 'public/js/admin').vue()
 	.sass('resources/css/site/app.scss', 'public/css', {
+	  //To avoid message:	'Using / for division is deprecated and will be removed'
+	  sassOptions: {
+		quietDeps: true,
+	  },
+	}).version()
+	.sass('resources/css/admin/app.scss', 'public/css/admin', {
 	  //To avoid message:	'Using / for division is deprecated and will be removed'
 	  sassOptions: {
 		quietDeps: true,
