@@ -41,3 +41,4 @@ mix.copy('resources/fonts', 'public/fonts');
 mix.copy('node_modules/@fortawesome/fontawesome-free/webfonts','public/webfonts');
 //Bootstrap-icons fonts
 mix.copy('node_modules/bootstrap-icons/font/fonts','public/css/fonts');
+mix.copy('node_modules/bootstrap-icons/font/fonts','public/css/admin/fonts');
