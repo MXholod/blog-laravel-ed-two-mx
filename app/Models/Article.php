@@ -5,10 +5,21 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use Cviebrock\EloquentSluggable\Sluggable;
 
 class Article extends Model
 {
     use HasFactory;
+	use Sluggable;
+	
+	public function sluggable(): array
+    {
+        return [
+            'slug' => [
+                'source' => 'title'
+            ]
+        ];
+    }
 	
 	//Accessible fields during mass fillings
 	protected $fillable = ['title', 'body', 'img', 'slug'];
@@ -55,4 +66,5 @@ class Article extends Model
 	public function scopeFindByTag($query, $amount){
 		return $query->with('statistics','tags')->orderBy('created_at', 'desc')->paginate($amount);
 	}
+	
 }
