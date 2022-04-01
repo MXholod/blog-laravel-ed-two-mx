@@ -8,7 +8,15 @@
 		<li class="nav-item tw-text-sm article-item-preview">
 			<div class="tw-flex tw-flex-row">
 				<span class="article-img-preview">
-					<img src="{{ $article->img }}" alt="{{ $article->title }}" class="tw-inline-block" />
+					@if(isset($article->title) && (substr($article->img,0,6) == "images"))
+					<img src="{{ url('downloads/'.$article->img) }}"
+						alt="{{ $article->title }}" 
+						title="{{ $article->title }}" 
+						class="tw-inline-block" 
+					/>
+					@else
+						<img src="{{ $article->img }}" alt="{{ $article->title }}" class="tw-inline-block" />
+					@endif
 				</span>
 				<div class="tw-flex tw-flex-col tw-pl-2 article-text-preview">
 					<div class="tw-flex tw-flex-col article-main-text">

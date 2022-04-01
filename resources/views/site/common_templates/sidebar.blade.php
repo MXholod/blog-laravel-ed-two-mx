@@ -12,7 +12,15 @@
 			<li class="nav-item tw-text-sm article-item-preview">
 				<div class="tw-flex tw-flex-row">
 					<span class="article-img-preview">
-						<img src="{{ $lastArticle->img }}" width="50" height="50" alt="{{ $lastArticle->title }}" class="tw-inline-block" />
+						@if(isset($lastArticle->title) && (substr($lastArticle->img,0,6) == "images"))
+						<img src="{{ url('downloads/'.$lastArticle->img) }}"
+							alt="{{ $lastArticle->title }}" 
+							title="{{ $lastArticle->title }}"  
+							class="tw-inline-block" 
+						/>
+						@else
+							<img src="{{ $lastArticle->img }}" alt="{{ $lastArticle->title }}" class="tw-inline-block" />
+						@endif
 					</span>
 					<div class="tw-flex tw-flex-col article-text-preview">
 						<span>
