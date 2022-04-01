@@ -92,7 +92,15 @@ class AdminArticleController extends Controller
      */
     public function edit($id)
     {
-        //
+        //Find an article by id
+		$article = Article::find($id);
+		//Get all the tags via Tag Model. 'id' is the key and label is the value of the array
+		// pluck - [ 23 => 'Tag label']
+		$allTags = Tag::pluck('label', 'id')->all();
+		//Get a portion of 5 comments to the current post
+		$comments = $article->comments()->orderBy('created_at', 'desc')->paginate(5);
+		//dump($article);
+		return view('admin.articles.edit', compact('article', 'allTags', 'comments'));
     }
 
     /**
