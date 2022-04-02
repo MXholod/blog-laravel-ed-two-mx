@@ -55,9 +55,30 @@
 					<p>There are no tags</p>
 				@endif
 			</div>
+			<div class="mb-3 tw-mt-3">
+				<p class="tw-font-black tw-mb-3">Comments of the article</p>
+				@if($comments->count() > 0)
+					<div class="container">
+						<ul class="list-group list-group-flush">
+							@foreach ($comments as $comment)
+								<li class="list-group-item tw-text-sm">
+									<input type="hidden" name="com_id" value="{{$comment->id}}" />
+									<input type="hidden" name="user_id" value="{{$comment->user_id}}" />
+									<input type="hidden" name="art_id" value="{{$comment->article_id}}" />
+									<div class="tw-w-full tw-font-black">{{ $comment->subject }}</div>
+									<div class="tw-w-full">{{ $comment->body }}</div>
+								</li>
+							@endforeach
+						</ul>
+					</div>
+					{{ $comments->appends(request()->query())->links() }}
+				@else
+					<p class="tw-text-red-600">There are no comments for this article</p>
+				@endif
+			</div>
 		</div>
 		<div class="card-footer">
-            <button type="submit" class="btn btn-primary">Add article</button>
+            <button type="submit" class="btn btn-primary">Update article</button>
         </div>
 	</form>
 	<pre></pre>
