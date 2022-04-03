@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 
 use App\Models\Article;
 use App\Models\Tag;
+//This Facade is for deleting images
+use Illuminate\Support\Facades\Storage;
 
 class AdminArticleController extends Controller
 {
@@ -68,9 +70,9 @@ class AdminArticleController extends Controller
 		//Set tags to the article
 		$article->tags()->sync($request->tags);
 		//Article title
-		$articleTitle = $request->input('title');
+		//$articleTitle = $request->input('title');
 		//Flash message another way 'with()' method
-		return redirect()->route('articles.index')->with('success', "The '{$articleTitle}' has been added");
+		return redirect()->route('articles.index')->with('success', "The article has been added");
     }
 
     /**
@@ -99,7 +101,7 @@ class AdminArticleController extends Controller
 		$allTags = Tag::pluck('label', 'id')->all();
 		//Get a portion of 5 comments to the current post
 		$comments = $article->comments()->orderBy('created_at', 'desc')->paginate(5);
-		//dump($article);
+		//dd($comments);
 		return view('admin.articles.edit', compact('article', 'allTags', 'comments'));
     }
 
@@ -112,7 +114,32 @@ class AdminArticleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        //Validation of parameters
+		$request->validate([
+			'title' => 'required',
+			'body' => 'required',
+			//tags[] - is not required
+			'img' => 'nullable|image' //nullable - means it is not required
+		]);
+		$article = Article::find($id);
+		//Remember the request 
+		$data = $request->all();
+		//Check if the image file has been loaded
+		if($request->hasFile('img')){
+			//Try to delete a previous image
+			Storage::disk('public')->delete($article->img);
+			//After the deletion adds new one
+			$folderName = date('Y-m-d');
+			//Path to save files: public/downloads/images/2021-08-20	it is set in config/filesystems.php
+			$data['img'] = $request->file('img')->store("images/{$folderName}", 'public');
+		}
+		//Article title
+		//$articleTitle = $request->input('title');
+		//Update
+		$article->update($data);
+		//Set tags to the article
+		$article->tags()->sync($request->tags);
+		return redirect()->route('articles.index')->with('success', "The article has been updated");
     }
 
     /**
