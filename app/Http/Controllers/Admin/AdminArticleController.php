@@ -151,5 +151,13 @@ class AdminArticleController extends Controller
     public function destroy($id)
     {
         //
+		$article = Article::find($id);
+		//Delete all bound tags to the current article from the pivot table 'article_tag'
+		$article->tags()->sync([]);
+		//Try to delete a previous image
+		Storage::disk('public')->delete($article->img);
+		//Delete article itself
+		$article->delete();
+		return redirect()->route('articles.index')->with('success', "The article has been deleted");
     }
 }
