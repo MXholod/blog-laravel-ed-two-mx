@@ -1,5 +1,7 @@
 @extends('admin.layouts.index')
 
+@section('title','Edit the chosen article')
+
 @section('content')
 <div class="tw-container tw-bg-white tw-p-6 tw-rounded-l-lg">
 	<h3 class="tw-text-lg tw-font-black tw-text-blue-600">Edit the article</h3>
