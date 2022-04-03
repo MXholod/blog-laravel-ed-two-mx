@@ -67,4 +67,13 @@ class Article extends Model
 		return $query->with('statistics','tags')->orderBy('created_at', 'desc')->paginate($amount);
 	}
 	
+	//Use this method in View template for a post edit
+	public function getImage(){
+		//Message is absent
+		if(!$this->img){
+			return false;
+		}
+		return asset("downloads/{$this->img}");
+	}
+	
 }
