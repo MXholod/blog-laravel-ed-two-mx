@@ -72,7 +72,7 @@ class AdminArticleController extends Controller
 		//Article title
 		//$articleTitle = $request->input('title');
 		//Flash message another way 'with()' method
-		return redirect()->route('articles.index')->with('success', "The article has been added");
+		return redirect()->route('admin.articles.index')->with('success', "The article has been added");
     }
 
     /**
@@ -139,7 +139,7 @@ class AdminArticleController extends Controller
 		$article->update($data);
 		//Set tags to the article
 		$article->tags()->sync($request->tags);
-		return redirect()->route('articles.index')->with('success', "The article has been updated");
+		return redirect()->route('admin.articles.index')->with('success', "The article has been updated");
     }
 
     /**
@@ -158,6 +158,6 @@ class AdminArticleController extends Controller
 		Storage::disk('public')->delete($article->img);
 		//Delete article itself
 		$article->delete();
-		return redirect()->route('articles.index')->with('success', "The article has been deleted");
+		return redirect()->route('admin.articles.index')->with('success', "The article has been deleted");
     }
 }

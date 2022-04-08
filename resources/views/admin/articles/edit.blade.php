@@ -5,7 +5,7 @@
 @section('content')
 <div class="tw-container tw-bg-white tw-p-6 tw-rounded-l-lg">
 	<h3 class="tw-text-lg tw-font-black tw-text-blue-600">Edit the article</h3>
-	<form method="POST" action="{{ route('articles.update', ['article' => $article->id]) }}" enctype="multipart/form-data">
+	<form method="POST" action="{{ route('admin.articles.update', ['article' => $article->id]) }}" enctype="multipart/form-data">
 		<div class="card-body">
 			@csrf
 			@method('PUT')

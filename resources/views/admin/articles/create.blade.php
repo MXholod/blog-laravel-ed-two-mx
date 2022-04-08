@@ -5,7 +5,7 @@
 @section('content')
 <div class="tw-container tw-bg-white tw-p-6 tw-rounded-l-lg">
 	<h3 class="tw-text-lg tw-font-black tw-text-blue-600">Create an article</h3>
-	<form method="POST" action="{{ route('articles.store') }}" enctype="multipart/form-data">
+	<form method="POST" action="{{ route('admin.articles.store') }}" enctype="multipart/form-data">
 		<div class="card-body">
 			@csrf
 			<div class="mb-3">

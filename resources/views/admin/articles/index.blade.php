@@ -8,7 +8,7 @@
 	
 	<div class="tw-mt-2 tw-mb-3 tw-p-2 tw-pl-4" style="background-color: rgb(240 249 255)">
 		<p>Here you can add a new article.
-			<a href="{{ route('articles.create') }}" class="tw-font-black tw-text-indigo-600">Add an article</a>
+			<a href="{{ route('admin.articles.create') }}" class="tw-font-black tw-text-indigo-600">Add an article</a>
 		</p>
 	</div>
 	
@@ -29,10 +29,10 @@
 						</a>
 					</div>
 					<div>
-						<a href="{{ route('articles.edit',$article->id) }}" class="tw-mr-4">
+						<a href="{{ route('admin.articles.edit',$article->id) }}" class="tw-mr-4">
 							<i class="bi bi-wrench"></i>
 						</a>
-						<form action="{{ route('articles.destroy', ['article' => $article->id]) }}" method="POST" class="tw-inline-block">
+						<form action="{{ route('admin.articles.destroy', ['article' => $article->id]) }}" method="POST" class="tw-inline-block">
 								@csrf
 								@method('DELETE')
 								<button type="submit" class="btn btn-danger btn-sm tw-p-0 tw-pl-1 tw-pr-1" onclick="return confirm('Delete it?')">
