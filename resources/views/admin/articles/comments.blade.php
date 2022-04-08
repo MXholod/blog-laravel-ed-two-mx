@@ -1,5 +1,7 @@
 @extends('admin.layouts.index')
 
+@section('title','Comments related to the article')
+
 @section('content')
 <div class="tw-container tw-bg-white tw-p-6 tw-rounded-l-lg">
 	<h3 class="tw-mt-2 tw-mb-2 tw-text-blue-600 tw-font-black">
