@@ -18,4 +18,8 @@ class Tag extends Model
 	public function articles(){
 		return $this->belongsToMany(Article::class);
 	}
+	
+	public function scopeListOfTags($query, $amount){
+		return $query->orderBy('id', 'desc')->paginate($amount);
+	}
 }
