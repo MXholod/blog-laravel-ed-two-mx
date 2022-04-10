@@ -29,6 +29,20 @@ class AdminArticleController extends Controller
 		return view('admin.articles.index', compact('articles'));
     }
 
+	/**
+     * Display a listing of the resource.
+     *
+	 * @param  \Illuminate\Http\Request  $request
+	 * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+	public function articleComments(Request $request, $id){
+		$article = Article::find($id);
+		$comments = $article->comments;
+		//dump($article->comments);
+		return view('admin.articles.comments', compact('comments'));
+	}
+	
     /**
      * Show the form for creating a new resource.
      *
