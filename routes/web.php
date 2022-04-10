@@ -8,6 +8,7 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\Admin\AdminHomeController;
 use App\Http\Controllers\Admin\AdminArticleController;
+use App\Http\Controllers\Admin\AdminTagController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,7 +47,10 @@ Route::middleware(['auth'])->group(function(){
 Route::prefix('admin')->group(function(){
 	Route::middleware(['is_admin'])->group(function(){
 		Route::get('/',[AdminHomeController::class, 'index'])->name('admin.index');
-		Route::resource('/articles', AdminArticleController::class);
-		Route::get('/article/comments/{id}',[AdminHomeController::class, 'articleComments'])->name('admin.article.comments');
+		Route::name('admin.')->group(function () {
+			Route::resource('/articles', AdminArticleController::class);
+			Route::get('/article/comments/{id}',[AdminArticleController::class, 'articleComments'])->name('article.comments');
+			Route::resource('/tags', AdminTagController::class);
+		});
 	});
 });
