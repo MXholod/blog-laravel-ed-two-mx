@@ -93,7 +93,7 @@
 		@endguest
 		@if($article->comments->count())
 		<div class="tw-mt-3 article-comment-list">
-			@foreach($article->comments as $comment)
+			@foreach($article->portionComments() as $comment)
 				<div class="tw-w-full toast show" data-bs-autohide="false">
 					<div class="toast-header tw-flex-col tw-items-start">
 						<span><b>User name:</b> {{ $comment->user->firstname }}</span>
@@ -110,6 +110,9 @@
 					</div>
 				</div>
 			@endforeach
+			<div class="tw-mt-2">
+				{{ $article->portionComments()->links() }}
+			</div>
 		</div>
 		@else
 		<div class="tw-mt-3 article-comment-list">
