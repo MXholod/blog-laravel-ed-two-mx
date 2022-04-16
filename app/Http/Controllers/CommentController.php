@@ -10,7 +10,7 @@ class CommentController extends Controller
     //
 	public function store(Request $request){
 		$validated = $request->validate([
-			'comTheme' => 'required|max:5',
+			'comTheme' => 'required|max:20',
 			'comText' => 'required',
 			'userId' => 'required|numeric',
 			'articleId' => 'required|numeric'
