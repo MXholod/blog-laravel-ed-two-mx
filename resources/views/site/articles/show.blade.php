@@ -12,9 +12,23 @@
 			</div>
 		</header>
 		<div class="full-article__content">
-			<span class="full-article__image">
-				<img src="{{ $article->img }}" />
-			</span>
+			@if(!!$article->getImage())
+				@if(isset($article->title) && (substr($article->img, 0, 6) == "images"))
+					<span class="full-article__image">		
+						<img src="{{ url($article->getImage()) }}"
+							width="160"
+							height="120"
+							alt="Image preview" 
+							title="{{ $article->title }}" 
+							class="tw-inline-block" 
+						/>
+					</span>
+				@else
+					<span class="full-article__image">
+						<img src="{{ $article->img }}" alt="{{ $article->title }}" class="tw-inline-block" />
+					</span>
+				@endif
+			@endif
 			{{ $article->body }}
 		</div>
 		<p class="tw-mt-4 tw-ml-4">
