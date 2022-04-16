@@ -67,6 +67,10 @@ class Article extends Model
 		return $query->with('statistics','tags')->orderBy('created_at', 'desc')->paginate($amount);
 	}
 	
+	public function scopePortionComments($query, $portion = 5){
+		return $this->comments()->orderBy('created_at', 'desc')->paginate($portion);
+	}
+	
 	//Use this method in View template for a post edit
 	public function getImage(){
 		//Message is absent
