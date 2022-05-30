@@ -44,12 +44,16 @@ Route::middleware(['auth'])->group(function(){
 	Route::post('/comment', [CommentController::class, 'store'])->name('comment.store');
 });
 //Administration zone
-Route::prefix('admin')->group(function(){
+Route::prefix('admin')->group(function(){// Prefix for all route URIs
 	Route::middleware(['is_admin'])->group(function(){
 		Route::get('/',[AdminHomeController::class, 'index'])->name('admin.index');
+		// The name method may be used to prefix each route name in the group with a given string
 		Route::name('admin.')->group(function () {
 			Route::resource('/articles', AdminArticleController::class);
 			Route::get('/article/comments/{id}',[AdminArticleController::class, 'articleComments'])->name('article.comments');
+			Route::delete('/article/comments/{id}',[AdminArticleController::class, 'articleCommentDelete'])->name('article.comments.delete');
+			//http://laravelblogsecond/admin/articles/{artId}/edit?page=1
+			Route::get('/article/{artId}/edit',[AdminArticleController::class, 'articleCommenstDraw'])->name('article.comments.draw');
 			Route::resource('/tags', AdminTagController::class);
 		});
 	});
