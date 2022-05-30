@@ -38,8 +38,21 @@ class AdminArticleController extends Controller
      */
 	public function articleComments(Request $request, $id){
 		$article = Article::find($id);
-		$comments = $article->comments;
-		//dump($article->comments);
+		//Prepare the list of comments
+		$comments = [];
+		foreach($article->comments as $comment){
+			$newComment = [];
+			$newComment['id'] = $comment->id;
+			$newComment['user_name'] = $comment->user->firstname;
+			$newComment['subject'] = $comment->subject;
+			$newComment['body'] = $comment->body;
+			$newComment['user_id'] = $comment->user_id;
+			$newComment['article_id'] = $comment->article_id;
+			$newComment['user_warning'] = $comment->user_warning;
+			$newComment['created_at'] = $comment->created_at;
+			array_push($comments, $newComment);
+		}
+		//$comments = $article->comments;
 		return view('admin.articles.comments', compact('comments'));
 	}
 	
@@ -174,4 +187,40 @@ class AdminArticleController extends Controller
 		$article->delete();
 		return redirect()->route('admin.articles.index')->with('success', "The article has been deleted");
     }
+	
+	public function articleCommenstDraw(Request $request, $artId){
+		//Check if AJAX
+		if($request->ajax()){
+			if($request->isMethod('get')){
+				$article = Article::find($artId);
+				$comments = $article->comments()->orderBy('created_at', 'desc')->paginate(5);
+				return view('admin.articles.comments_edit_block', compact('comments'))->render();
+			}
+		}
+	}
+	
+	public function articleCommentDelete(Request $request, $id, $commentId){
+		//Check if AJAX
+		if($request->ajax()){
+			if($request->isMethod('delete')){
+				$commId = $request->input('comment_id');
+				$userId = $request->input('user_id');
+				$article_id = $request->input('article_id');
+				$comment = Comment::find($commId);
+				dd($comment);
+				//Delete the comment
+				$comment->delete();
+				//Get a an article by 'id'
+				$article = Article::where('id', $article_id)->first();
+				//Get last five comments related to the article
+				$comments = $article->comments()->orderBy('created_at', 'desc')->paginate(5);
+				//Compile view with comments after the one was deleted
+				return view('admin.articles.comment_list', compact('comments', 'id'))->render();
+			}else{
+				return response()->json([
+					'data' => "Bad request"
+				]);
+			}
+		}
+	}
 }
