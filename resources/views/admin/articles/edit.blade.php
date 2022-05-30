@@ -61,19 +61,14 @@
 				<p class="tw-font-black tw-mb-3">Comments of the article</p>
 				@if($comments->count() > 0)
 					<div class="container">
-						<ul class="list-group list-group-flush">
-							@foreach ($comments as $comment)
-								<li class="list-group-item tw-text-sm">
-									<input type="hidden" name="com_id" value="{{$comment->id}}" />
-									<input type="hidden" name="user_id" value="{{$comment->user_id}}" />
-									<input type="hidden" name="art_id" value="{{$comment->article_id}}" />
-									<div class="tw-w-full tw-font-black">{{ $comment->subject }}</div>
-									<div class="tw-w-full">{{ $comment->body }}</div>
-								</li>
-							@endforeach
+						<input type="hidden" id="artId" value="{{$article->id}}" />
+						<ul class="list-group list-group-flush" id="comments-list">
+							@include('admin.articles.comments_edit_block', ['comments' => $comments, 'id' => $article->id])
 						</ul>
 					</div>
-					{{ $comments->appends(request()->query())->links() }}
+					<div id="comments-paginate">
+						{{ $comments->appends(request()->query())->links() }}
+					</div>
 				@else
 					<p class="tw-text-red-600">There are no comments for this article</p>
 				@endif
@@ -86,3 +81,143 @@
 	<pre></pre>
 </div>
 @endsection
+
+
+@push("scripts-admin-bottom")
+	<script type="text/javascript">
+		const artId = document.getElementById("artId");
+		const commentsList = document.getElementById("comments-list");
+		const commentsPaginate = document.getElementById("comments-paginate");
+		let listLI = commentsPaginate.querySelectorAll(".pagination li");
+		//"http://laravelblogsecond/admin/article/1/edit?page="
+		let host = window.location.protocol+"//"+window.location.host;
+		let uri = host+"/admin/article/"+artId.value+"/edit?page=";
+		//Three numbers 
+		let currentButton = 0, current = 0, end = listLI.length - 1;
+		//Subscribe on all LI elements
+		for(let i = end; i >= 0; i--){
+			//Set the current page
+			if(listLI[i].hasAttribute("aria-current")){
+				current = i;
+				currentButton = i;
+			}
+			listLI[i].onclick = clickOnPagination;
+		}
+		//Click on each LI element
+		function clickOnPagination(e){
+			e.preventDefault();
+			//Reset attributes and classes
+			for(let i = end; i >= 0; i--){
+				//Remove attribute 'aria-current' and class 'active'
+				if(listLI[i].hasAttribute("aria-current") && listLI[i].classList.contains("active")){
+					listLI[i].removeAttribute("aria-current");
+					listLI[i].classList.remove("active");
+				}
+				//Remove attribute 'aria-disabled' and class 'disabled'
+				if(listLI[i].hasAttribute("aria-disabled") && listLI[i].classList.contains("disabled")){
+					listLI[i].removeAttribute("aria-disabled");// true
+					listLI[i].removeAttribute("aria-label");// '« Previous' or 'Next »'
+					listLI[i].classList.remove("disabled");
+				}
+			}
+			
+			//this //this - LI
+			let el = determineChild(this);
+			let elementCode = el.firstChild.nodeValue.charCodeAt();
+			if(el.tagName === "A"){
+				//Clicked on 'A'
+				if(elementCode !== 8249 && elementCode !== 8250){
+					//
+					current = Number(el.firstChild.nodeValue);
+				}else{//Clicked on 'A' but value is a: < or >
+					//Back '<' character
+					if(elementCode === 8249 && current > 1){
+						current -= 1;
+						//setAttrsNear(this, "« Previous");
+					}
+					//Forward '>' character
+					if(elementCode === 8250 && current < (end - 1)){
+						current += 1;
+						//setAttrsNear(this, "Next »");
+					}
+				}
+			}else if(el.tagName === "SPAN"){
+				//Back '<' character
+				if(elementCode === 8249){
+					//
+					if(current > 1){
+						current -= 1;
+					}else{
+						current = 1;
+					}
+					//setAttrsNear(this, "« Previous");
+				//Forward '>' character
+				}else if(elementCode === 8250){
+					if(current < (end - 1)){
+						current += 1;
+					}else{
+						current = (end - 1);
+					}
+					//setAttrsNear(this, "Next »");
+				}else{//Get a page number from 'SPAN' - active page number
+					current = Number(el.firstChild.nodeValue);
+				}
+			}
+			//URI formed with query string
+			let uriPageNumber = uri+current;
+			//Set element as 'active'
+			activeElement();
+			//Request to the server
+			if(currentButton !== current){
+				//Save 'current' to prevent request repeating 
+				currentButton = current;
+				getPaginationData(uriPageNumber);
+			}
+		}
+		//Determine child relationally to parent element LI
+		function determineChild(parentEl){
+			if(parentEl.firstChild.nodeType !== 1){
+				return parentEl.firstChild.nextSibling;
+			}else{
+				return parentEl.firstChild;
+			}
+		}
+		//Set the current page as 'Active'
+		function activeElement(){
+			for(let i = end; i >= 0; i--){
+				if(i === current){
+					listLI[i].setAttribute("aria-current","page");
+					listLI[i].classList.add("active");
+					//
+					if(current === 1){
+						setAttrsNear(listLI[0], "« Previous");
+					}
+					if(current === (end - 1)){
+						setAttrsNear(listLI[end], "Next »");
+					}
+				}
+			}
+		}
+		//Rewrite attributes according to the 'Active' page for arrows '<' and '>'
+		function setAttrsNear(el, ariaLabel){
+			//Remove attribute 'aria-disabled' and class 'disabled'
+			if(!el.hasAttribute("aria-disabled") && !el.classList.contains("disabled")){
+				el.setAttribute("aria-disabled","true");
+				el.setAttribute("aria-label", ariaLabel);// '« Previous' or 'Next »'
+				el.classList.add("disabled");
+			}
+		}
+		//Request on server
+		async function getPaginationData(uri){
+			try{
+				//Make a request to server to get LI elements with content for the pagination
+				const response = await window.axios.get(uri);
+				//Assign data to UL element
+				commentsList.innerHTML = response.data;
+			}catch(e){
+				//console.log(e);
+				alert("Pagination is failed");
+			}
+		}
+	</script>
+@endpush
