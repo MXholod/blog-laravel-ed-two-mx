@@ -100,9 +100,17 @@
 						<img class="rounded" />
 						<span><b>Discussed theme:</b> {{ $comment->subject }}</span>
 					</div>
+					@if(!$comment->user_warning)
 					<div class="toast-body">
 						{{ $comment->body }}
 					</div>
+					@else
+					<div class="toast-body tw-text-center">
+						<span class="tw-font-black" style="color: rgb(225 29 72)">
+							Your comment has been banned by administrator
+						</span>
+					</div>
+					@endif
 					<div>
 						<small class="tw-inline-block tw-w-full tw-text-right tw-pr-6">
 							Commented on: {{ $comment->createdAtForHumans() }}
