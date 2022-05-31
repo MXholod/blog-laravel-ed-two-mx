@@ -23,8 +23,12 @@
 				{{ $article->title }}
 				<div>
 					<div>
-						<span>Amount of comments: {{ $article->comments()->count() }}</span>
-						<a href="{{ route('admin.article.comments', ['id'=>$article->id]) }}">
+						<span>
+							Amount of comments: {{ $article->comments()->count() }}
+						</span>
+						<a class="tw-font-black tw-text-sm"
+						   href="{{ route('admin.article.comments', ['id'=>$article->id]) }}"
+						>
 							See the list of comments
 						</a>
 					</div>
