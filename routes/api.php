@@ -26,3 +26,8 @@ Route::put('article-comments/{id}', [App\Http\Controllers\Admin\Api\CommentContr
 Route::patch('article-comments/{id}', [App\Http\Controllers\Admin\Api\CommentController::class, 'updatePartComment']);
 Route::delete('article-comments/{id}', [App\Http\Controllers\Admin\Api\CommentController::class, 'deletePartComment']);
 
+//{host}/api/article-views
+Route::put('article-views', [App\Http\Controllers\Api\ArticleController::class, 'views']);
+//{host}/api/article-likes
+Route::put('article-likes', [App\Http\Controllers\Api\ArticleController::class, 'likes']);
+
