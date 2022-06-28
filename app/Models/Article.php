@@ -71,6 +71,14 @@ class Article extends Model
 		return $this->comments()->orderBy('created_at', 'desc')->paginate($portion);
 	}
 	
+	public function scopeIncrementStatistics($query, $entety){
+		$stat = $this->statistics;
+		$value = 0;
+			$value = ($stat->views + 1);
+			$this->statistics->update(['views' => $value]);
+		return $this->statistics;
+	}
+	
 	//Use this method in View template for a post edit
 	public function getImage(){
 		//Message is absent
