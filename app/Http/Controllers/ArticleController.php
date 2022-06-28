@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Article;
 use App\Models\Tag;
+use Illuminate\Support\Facades\DB;
 
 class ArticleController extends Controller
 {
@@ -18,7 +19,9 @@ class ArticleController extends Controller
 	public function show($slug){
 		//Method 'findBySlug' is a scope from Model
 		$article = Article::findBySlug($slug);
-		return view('site.articles.show', compact('article'));
+		//$likes = Article::with('likes');
+		$likesAmount = DB::table('article_likes_user')->where('article_id','=',$article->id)->where('like_state','=',1)->get()->count();
+		return view('site.articles.show', compact('article','likesAmount'));
 	}
 	//Laravel will determine 'Tag $tag' as Model, which has 'id'. 
 	//Therefore, Laravel finds 'tag' by 'id' if it meets a Model Tag.
