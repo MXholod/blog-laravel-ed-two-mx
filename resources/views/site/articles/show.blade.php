@@ -43,18 +43,33 @@
 		</p>
 		<footer class="tw-pt-6">
 			<div class="tw-bg-slate-50 tw-w-2/6">
-			@isset($article->statistics)
-				<span class="badge bg-primary">
-					{{ $article->statistics->likes }}
-					<i class="far fa-thumbs-up"></i>
-				</span>
-			@endisset
-			@isset($article->statistics)
-				<span class="badge bg-danger">
-					{{ $article->statistics->views }}
-					<i class="far fa-eye"></i>
-				</span>
-			@endisset	
+				@auth
+					@isset($article->statistics)
+						<article-likes 
+							:user="{{json_encode(['userId'=>auth()->id()])}}" 
+							:likes="{{ $likesAmount }}"
+							>
+							<span slot="likes" class="badge bg-primary">
+								{{ $likesAmount }}
+								<i class="far fa-thumbs-up"></i>
+							</span>
+						</article-likes>
+					@endisset
+				@endauth
+				@guest
+					<span slot="likes" class="badge bg-primary">
+						{{ $likesAmount }}
+						<i class="far fa-thumbs-up"></i>
+					</span>
+				@endguest
+				@isset($article->statistics)
+					<article-views>
+						<span slot="views" class="badge bg-danger">
+							{{ $article->statistics->views }}
+							<i class="far fa-eye"></i>
+						</span>
+					</article-views>
+				@endisset	
 			</div>
 		</footer>
 	</article>
