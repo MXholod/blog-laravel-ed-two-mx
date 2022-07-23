@@ -8,13 +8,15 @@
 				</a>
 			</li>
 			<li>
-				<a href="#" class="tw-p-3">Dashboard</a>
-			</li>
-			<li>
 				<a href="{{ route('article.index') }}" class="tw-p-3 {{ (request()->is('articles') or request()->is('articles/*')) ? 'tw-inline-block tw-border tw-border-blue-500 tw-rounded tw-py-1 tw-px-3 tw-bg-blue-500 tw-text-white' : '' }}">
 					Articles
 				</a>
 			</li>
+			@if(auth()->user() && (auth()->user()->is_admin === 1))
+			<li>
+				<a href="{{ route('admin.index') }}" class="tw-p-3"> Admin dashboard</a>
+			</li>
+			@endif
 		</ul>
 		<ul class="tw-flex tw-items-center">
 			@auth
