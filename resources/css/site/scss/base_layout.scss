@@ -116,8 +116,8 @@ html,body{
 		margin:0 0 .5em 7%;
 		width: 85%;
 		.article-img-preview{
-			max-width:80px;
-			max-height:80px;
+			max-width:100px;
+			max-height:100px;
 		}
 		.article-text-preview{
 			width:100%;
@@ -133,7 +133,7 @@ html,body{
 					font-weight:bold;
 				}
 				a:last-child{
-					color: blue;
+					color: #fff;
 				}
 			}
 		}
