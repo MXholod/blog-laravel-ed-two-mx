@@ -12,7 +12,7 @@ class ArticleController extends Controller
     //
 	public function index(){
 		//Method 'allPaginate' is a scope from Model
-		$articles = Article::allPaginate(7);
+		$articles = Article::allPaginate(4);
 		return view('site.articles.index', compact('articles'));
 	}
 	
